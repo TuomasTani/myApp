@@ -7,7 +7,7 @@ export default function HomePage() {
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to Homepage!</Text>
       <Link href="/locations" style={styles.link}>
-      Go to Locations
+      Add a New Location
       </Link>
     </View>
   );
@@ -24,13 +24,14 @@ const styles = StyleSheet.create({
 },
   text: {
   color: "black",
+  fontWeight: "bold",
   fontSize: 28,
 
 },
 
 link: {
   marginTop: 20,
-  color: "blue",
+  color: "#8ED1FC",
   fontSize: 20,
 }
 
