@@ -1,18 +1,17 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
-import React from "react";
+import { Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
-export default function HomePage() {
+export default function Locations() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to Homepage!</Text>
-      <Link href="/locations" style={styles.link}>
-      Go to Locations
+      <Text style={styles.text}>Welcome to Locations!</Text>
+
+      <Link href="/" style={styles.link}>
+      Go Back Home
       </Link>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -20,9 +19,9 @@ const styles = StyleSheet.create({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "grey",
-
 },
-  text: {
+
+text: {
   color: "black",
   fontSize: 28,
 
@@ -32,6 +31,6 @@ link: {
   marginTop: 20,
   color: "blue",
   fontSize: 20,
-}
 
+}
 })
