@@ -1,15 +1,28 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable, Image } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
+import { Redirect } from "expo-router";
+import { ImageBackground } from "expo-image";
+
+// <Redirect href={"/login" as any} />;
 
 export default function HomePage() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to Homepage!</Text>
+      <Image
+       source={require('../assets/images/home.png')}
+       style={styles.image}
+      />
+      <Text style={styles.text}>Welcome to Homepage</Text>
+      <Text style={styles.description}>
+        Explore nearby places, find hidden gems, and navigate with ease. Whether you're searching
+        for restaurants, parks, or local hotspots, our app helps you discover the best spots
+        around you—fast, easy, and interactive.
+      </Text>
       <Link href="/locations" style={styles.link}>
       Add a New Location
       </Link>
-    </View>
+    </View> 
   );
 }
 
@@ -19,20 +32,42 @@ const styles = StyleSheet.create({
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "grey",
+  backgroundColor: "#93B1B5",
 
 },
   text: {
   color: "black",
   fontWeight: "bold",
   fontSize: 28,
+  marginTop: 20,
 
 },
 
 link: {
-  marginTop: 20,
-  color: "#8ED1FC",
-  fontSize: 20,
+  marginBottom: 40,
+  color: "#B8E3E9",
+  fontSize: 22,
+  fontWeight: "bold",
+},
+
+description: {
+  fontSize: 18,
+  textAlign: "center",
+  marginBottom: 40,
+  marginTop: "auto",
+  color: "",
+  borderWidth: 2,
+  borderColor: "#B8E3E9",
+  borderRadius: 10,
+  fontWeight: "bold",
+
+},
+
+image: {
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+
 }
 
 })
