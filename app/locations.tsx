@@ -1,24 +1,34 @@
-import { Text, View, StyleSheet, TextInput, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, Alert, FlatList } from "react-native";
 import { Link } from "expo-router";
 import React, {useState} from 'react';
+
+type Location = {
+  id: string;
+  name: string;
+  description: string;
+  rating: number;
+}
 
 export default function Locations() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState('1');
+  const [locations, setLocations] = useState<Location[]>([]);
 
   const addLocation = () => {
     if (!name.trim()) {
       Alert.alert('Location name is required');
+      return;
     }
 
   const newLocation = {
+    id: Date.now().toString(),
     name: name.trim(),
     description: description.trim(),
     rating: parseInt(rating, 10),
   };
 
-  console.log('New Location:', newLocation);
+  setLocations([...locations, newLocation]);
   Alert.alert('Location Added', `${newLocation.name}`)
 
   setName('');
@@ -55,6 +65,17 @@ export default function Locations() {
 
       <Button title="Add Location" onPress={addLocation} />
 
+      <FlatList
+      data={locations}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={styles.locationItem}>
+          <Text style={styles.locationName}>{item.name}</Text>
+          <Text>{item.description}</Text>
+          <Text>Rating: {item.rating}</Text>
+          </View>
+      )}
+      />
       <Link href="/" style={styles.link}>
       Go Back Home
       </Link>
@@ -72,7 +93,7 @@ const styles = StyleSheet.create({
 },
 
 text: {
-  color: "black",
+  color: "#B8E3E9",
   fontWeight: "bold",
   fontSize: 28,
   marginBottom: 14,
@@ -94,5 +115,24 @@ input: {
   padding: 8,
   marginBottom: 14,
   borderRadius: 4,
+},
+
+locationItem: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: 16,
+  marginVertical: 8,
+  marginHorizontal: 16,
+  elevation: 3,
+  flexWrap: "wrap",
+  borderRadius: 10,
+
+},
+
+locationName: {
+  fontSize: 18,
+  fontWeight: "500",
+
 }
 })
