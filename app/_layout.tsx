@@ -39,6 +39,17 @@ export default function RootLayout() {
       }}
       />
 
+      <Tabs.Screen
+      name="map"
+      options={{ title: "Map",
+      tabBarIcon: ({ color, size }) => (
+        <FontAwesome name="map" size={size} color={color} />
+      )
+
+      }}
+
+      />
+
     </Tabs>
   )
 }

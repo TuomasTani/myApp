@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
 
 },
   text: {
-  color: "black",
+  color: "#B8E3E9",
   fontWeight: "bold",
   fontSize: 28,
-  marginTop: 20,
+  marginTop: 32,
 
 },
 
