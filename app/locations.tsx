@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TextInput, Button, Alert, FlatList } from "react-native";
 import { Link } from "expo-router";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Location = {
   id: string;
@@ -15,20 +16,44 @@ export default function Locations() {
   const [rating, setRating] = useState('1');
   const [locations, setLocations] = useState<Location[]>([]);
 
-  const addLocation = () => {
+  useEffect(() => {
+    const loadLocations = async () => {
+      const storedLocations = await AsyncStorage.getItem('locations')
+
+      if (storedLocations) {
+        setLocations(JSON.parse(storedLocations))
+      }
+    } 
+    loadLocations()
+  }, []);
+
+  const addLocation = async () => {
     if (!name.trim()) {
       Alert.alert('Location name is required');
       return;
     }
 
-  const newLocation = {
+  const newLocation: Location = {
     id: Date.now().toString(),
     name: name.trim(),
     description: description.trim(),
     rating: parseInt(rating, 10),
   };
 
-  setLocations([...locations, newLocation]);
+  const updatedLocations = [...locations, newLocation];
+
+  setLocations(updatedLocations);
+
+  try {
+  await AsyncStorage.setItem(
+    'locations',
+    JSON.stringify(updatedLocations)
+  );
+  } catch (error) {
+      Alert.alert('error', 'Failed to load saved locations')
+      console.error(error);
+    }
+
   Alert.alert('Location Added', `${newLocation.name}`)
 
   setName('');
